@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="dsdcFlow" doc:id="ae247c70-4cde-4d43-8cc0-fc0e44e6c3ee" >
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="6d5edc1f-4e65-4024-8d9d-d3c75abfcbf8" />
+	</flow>
+</mule>
