@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<munit:config name="test-suite.xml" />
+
+	<http:request-config name="HTTP_Request_configuration"
+		doc:name="HTTP Request configuration" doc:id="0dc11f13-58b2-4402-b562-ed2b2eab295a">
+		<http:request-connection host="0.0.0.0" port="8081"
+			connectionIdleTimeout="300000" />
+	</http:request-config>
+
+	<munit:test name="proxying-a-soap-apiFlowTest" description="Test"
+		doc:id="165ba440-78db-4d91-9eaa-649fa55b2969">
+		<munit:enable-flow-sources>
+			<munit:enable-flow-source value="proxying-a-soap-apiFlow" />
+		</munit:enable-flow-sources>
+		<munit:execution>
+			<ee:transform doc:name="Prepare SOAP request"
+				doc:id="7ce1ca4b-f172-4e36-8ab6-586c9c2d5730">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns1 http://mulesoft.org/tshirt-service
+---
+ns1#ListInventory : {}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<http:request method="GET" doc:name="Request to /listInventory"
+				doc:id="4869dc30-26a5-4338-ae98-4e03eda89d88" config-ref="HTTP_Request_configuration"
+				path="/listInventory" />
+		</munit:execution>
+		<munit:validation>
+			<ee:transform doc:name="Transform response"
+				doc:id="6c7d4e2f-90f0-407b-af41-c048505f6f7e">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output application/json 
+--- 
+payload.ListInventoryResponse]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+			<munit-tools:assert-that
+				doc:name="Assert that list inventory response is not equal to null"
+				doc:id="e2b8c8da-c09b-4489-bfd4-390396086516" expression="#[payload]"
+				is="#[MunitTools::notNullValue()]" />
+			<munit-tools:assert-that doc:name="Assert response status"
+				doc:id="e399bb68-26ef-428c-9b68-89ca73bf76b1" expression="#[attributes.statusCode]"
+				is="#[MunitTools::equalTo(200)]" />
+			<munit-tools:assert-that doc:name="Assert content type"
+				doc:id="5c3d6cd1-d15a-40e2-9a03-12589ce76d9f" expression="#[attributes.headers['content-type']]"
+				is="#[MunitTools::equalTo('application/xml; charset=UTF-8')]" />
+		</munit:validation>
+	</munit:test>
+
+</mule>
