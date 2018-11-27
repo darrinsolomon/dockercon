@@ -33,6 +33,7 @@
 			            <applicationName>papi-placeorder-dockercon</applicationName>
 			            <environment>Sandbox</environment>
 			            <region>us-east-2</region>
+			            <workerType>SMALL</workerType>
 			            <properties>
 			                <key>value</key>
 			            </properties>
