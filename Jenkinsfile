@@ -31,7 +31,7 @@
         ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
       }
         steps {
- 				  sh 'mvn -f papi-aggregate/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
+ 				  sh 'mvn -f papinew/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
       }
     }
       stage("Finishing Task") {
