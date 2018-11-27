@@ -38,4 +38,13 @@ type product_json = {|
       </types:output-event>
     </types:processor-declaration>
   </types:enrichment>
+  <types:enrichment select="#18d8a26f-7573-4311-8872-e03737b91aa8">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="product_json"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
 </types:mule>
