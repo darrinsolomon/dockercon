@@ -7,6 +7,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<flow name="sapiFlow" doc:id="ef2c2e2e-1b13-4bb6-a700-c42a200f910b" >
 		<http:listener doc:name="GET /sapi" doc:id="84eef5bf-a834-41cf-82cf-c4568791dbc2" config-ref="SAPI_Listener" path="${http_Listener.listen_path}"/>
 		<http:request method="GET" doc:name="SOR_Inventory" doc:id="e751318a-6382-48be-a7e5-f3559301e05d" config-ref="SOR-inventory-request" path="${http_Requestor.request_path_SOR_inventory}"/>
-		<logger level="INFO" doc:name="Generic_Logger" doc:id="fccd1b06-e374-48ad-aa7b-62e716df62ac" />
+		<logger level="INFO" doc:name="Generic_Loggers" doc:id="fccd1b06-e374-48ad-aa7b-62e716df62ac" />
 	</flow>
 </mule>
