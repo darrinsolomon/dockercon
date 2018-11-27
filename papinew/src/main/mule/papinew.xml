@@ -15,18 +15,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-{
-	products: payload.products map ( product , indexOfProduct ) -> {
-		brand: product.brand,
-		identifier: product.identifier default "",
-		model: product.model,
-		rating: product.rating,
-		description: product.description default "",
-		pictures: product.pictures map ( picture , indexOfPicture ) -> picture,
-		price: product.price
-	}
-}
-]]></ee:set-payload>
+payload]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
 			</route>
@@ -49,7 +38,7 @@ output application/json
 ---
 {
 	
-products: payload
+products: payload."0" ++ payload."1"
 	
 }]]></ee:set-payload>
 			</ee:message>
