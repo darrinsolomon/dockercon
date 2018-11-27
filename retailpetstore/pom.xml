@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.1.4</app.runtime>
+		<app.runtime>4.1.3</app.runtime>
 		<mule.maven.plugin.version>3.1.6</mule.maven.plugin.version>
 	</properties>
 
@@ -27,7 +27,7 @@
 				<configuration>
 				<cloudHubDeployment>
 			            <uri>${mule.URL}</uri>
-			            <muleVersion>4.1.4</muleVersion>
+			            <muleVersion>4.1.3</muleVersion>
 			            <username>${mule.username}</username>
 			            <password>${mule.password}</password>
 			            <applicationName>petstore-dockercon</applicationName>
