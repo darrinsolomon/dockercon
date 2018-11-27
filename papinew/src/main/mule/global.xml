@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="bcfa42ca-275e-4313-99d3-376c7d1ccdfb" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_Sapi" doc:name="HTTP Request configuration" doc:id="344dbbef-7dfb-4797-8acf-a322d550f63e">
+		<http:request-connection host="${http_request_sapi.host}" port="${http_request_sapi.port}" />
+	</http:request-config>
+	<http:request-config name="HTTP_Request_petstore" doc:name="HTTP Request configuration" doc:id="23b8291c-1635-457d-8539-4393426c707e" >
+		<http:request-connection host="${http_request_petstore.host}" port="${http_request_petstore.port}" />
+	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="c21ad41a-69f7-4dd4-98d9-fda1ccf94405" file="config.yaml" />
+</mule>
