@@ -32,6 +32,7 @@
 			            <password>${mule.password}</password>
 			            <applicationName>sAPI-inventory-dockercon</applicationName>
 			            <environment>Sandbox</environment>
+			            <workerType>SMALL</workerType>
 			            <region>us-east-2</region>
 			            <properties>
 			                <key>value</key>
