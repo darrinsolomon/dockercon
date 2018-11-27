@@ -26,6 +26,22 @@
  				  sh 'mvn -f sapi/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
       }
     }
+      stage("Deploying pAPI") {
+      environment {
+        ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
+      }
+        steps {
+ 				  sh 'mvn -f papi/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
+      }
+    }
+      stage("Deploying eAPI") {
+      environment {
+        ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
+      }
+        steps {
+          sh 'mvn -f eapi/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
+      }
+    }
     stage("Finishing Task") {
       steps {
         echo "Deployment Completed on CH..."
