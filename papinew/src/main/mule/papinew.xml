@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<scatter-gather doc:name="Scatter-Gather" doc:id="aa8a69cd-20db-4083-9a1c-096706272d7c">
 			<route >
 				<http:request method="GET" doc:name="GET /sapi" doc:id="bb2feec4-bbf3-4678-9d32-8d5a9aa443a7" config-ref="HTTP_Request_Sapi" path="${http_request_sapi.path}" />
-				<logger level="INFO" doc:name="Logger1" doc:id="4cf5fc03-87aa-444d-a34a-b1fd1f79c2cd" message="#[payload]"/>
+				<logger level="INFO" doc:name="Logger" doc:id="4cf5fc03-87aa-444d-a34a-b1fd1f79c2cd" message="#[payload]"/>
 				<ee:transform doc:name="Transform Message" doc:id="41de4b67-ba2a-4190-9b53-a7c4319aa575" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
