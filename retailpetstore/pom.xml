@@ -3,17 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mycompany</groupId>
-	<artifactId>eapi</artifactId>
+	<artifactId>retailpetstore</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>mule-application</packaging>
 
-	<name>eapi</name>
+	<name>retailpetstore</name>
 
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<app.runtime>4.1.3</app.runtime>
+		<app.runtime>4.1.4</app.runtime>
 		<mule.maven.plugin.version>3.1.6</mule.maven.plugin.version>
 	</properties>
 
@@ -27,10 +27,10 @@
 				<configuration>
 				<cloudHubDeployment>
 			            <uri>${mule.URL}</uri>
-			            <muleVersion>4.1.3</muleVersion>
+			            <muleVersion>4.1.4</muleVersion>
 			            <username>${mule.username}</username>
 			            <password>${mule.password}</password>
-			            <applicationName>eAPI-Mobile-dockercon</applicationName>
+			            <applicationName>petstore-dockercon</applicationName>
 			            <environment>Sandbox</environment>
 			            <region>us-east-2</region>
 			            <properties>
@@ -44,7 +44,7 @@
 	</build>
 
 	<dependencies>
-	</dependencies>
+    </dependencies>
 
 	<repositories>
           <repository>

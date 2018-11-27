@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="retailpetstoreFlow" doc:id="5d3671e5-c393-4afe-9a77-8c85d4769946" >
+		<http:listener doc:name="Listener" doc:id="148317fe-4cfb-4426-a4d7-e99fcf40528f" config-ref="WS_REST" path="/petstore" allowedMethods="GET"/>
+		<wsc:consume operation="GetProducts" doc:name="Consume" doc:id="ba8112ef-a035-49c5-872e-a77e09f052fa" config-ref="Web_Service_Consumer_Config"/>
+		<ee:transform doc:name="Transform Message" doc:id="a2fb0c2b-cd38-4397-aaae-1d505d205eb9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+ns ns0 http://com.vnext.petshop/ProductService
+---
+{
+	products: payload.body.ns0#GetProductsResponse.ns0#GetProductsResult.*ns0#Product map ( product , indexOfProduct ) -> {
+		brand: product.ns0#CategoryId default "",
+		identifier: product.ns0#ProductId default "",
+		model: product.ns0#Name default "",
+		rating: "",
+		description: product.ns0#Description default "",
+		pictures: product.ns0#ImageUrl default []
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="7e6750cc-f820-4950-bd24-bb81cb4ac40d" />
+	</flow>
+</mule>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="f90e816a-9323-41a1-b130-91bf5aa3c786" file="config.yaml" />
+	<wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="08d1f56f-1190-469f-96c3-efa797543b67" >
+		<wsc:connection wsdlLocation="http://petshop.sixeyed.com:8085/ProductService.svc?wsdl" service="ProductService" port="BasicHttpBinding_IProductService" address="http://petshop.sixeyed.com:8085/ProductService.svc" />
+	</wsc:config>
+	<http:listener-config name="WS_REST" doc:name="HTTP Listener config" doc:id="76b2ca2b-0f0b-4b78-9918-5e23dcdf8a3b" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+</mule>

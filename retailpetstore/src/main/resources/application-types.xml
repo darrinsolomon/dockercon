@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="pet_example" format="json">
+      <types:shape format="weave" example="examples/petProduct.json"><![CDATA[%dw 2.0
+type pet_example = {|
+  products: Array<{|
+    brand: String, 
+    identifier: String, 
+    model: String, 
+    rating: Number {"typeId": "int"}, 
+    description: String, 
+    pictures: Array<String>, 
+    price: {|
+      amount: {|
+        currency: String, 
+        currencyValue: Number {"typeId": "double"}, 
+        name: String
+      |}, 
+      salesUnit: {|
+        code: String, 
+        name: String
+      |}
+    |}
+  |}>
+|} {"MetadataFormat": "json",
+"example": "{\"products\":[{\"brand\":\"Anypoint\",\"identifier\":\"e1c515f9-102d-4830-b353-18fe48065732\",\"model\":\"Uniforms Modern Fit Short Sleeve Polo Shirt\",\"rating\":5,\"description\":\"Machine Wash, Tumble Dry. True to Size. This is a good product.\\n\",\"pictures\":[\"https:\/\/images-na.ssl-images-amazon.com\/images\/I\/41p0XBBb6vL.jpg\"],\"price\":{\"amount\":{\"currency\":\"GBP\",\"currencyValue\":12.95,\"name\":\"Amount\"},\"salesUnit\":{\"code\":\"EA\",\"name\":\"EACH\"}}},{\"brand\":\"Anypoint\",\"identifier\":\"e1c515f9-102d-4830-b353-18fe48065732\",\"model\":\"Uniforms Modern Fit Short Sleeve Polo Shirt\",\"rating\":5,\"description\":\"Machine Wash, Tumble Dry. True to Size.\",\"pictures\":[\"https:\/\/images-na.ssl-images-amazon.com\/images\/I\/41p0XBBb6vL.jpg\"],\"price\":{\"amount\":{\"currency\":\"USD\",\"currencyValue\":12.95,\"name\":\"Amount\"},\"salesUnit\":{\"code\":\"EA\",\"name\":\"Each\"}}}]}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#a2fb0c2b-cd38-4397-aaae-1d505d205eb9">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="pet_example"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
