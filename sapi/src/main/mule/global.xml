@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="SAPI_Listener" doc:name="HTTP Listener config" doc:id="aa509e00-2b68-4c97-ad69-3384201ada60">
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="SOR-inventory-request" doc:name="HTTP Request configuration" doc:id="0ac01d4a-0062-4a0d-8692-99bf0ebb5aa5">
+		<http:request-connection host="${http_Requestor.request_host_SOR_inventory}" port="${http_Requestor.request_port_SOR_inventory}" />
+	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="c229b88d-ad07-4577-9e83-9201d18442e6" file="config.yaml" />
+</mule>

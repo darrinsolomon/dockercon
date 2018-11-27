@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="5b7b9feb-c2a3-454e-91eb-59f159e22d1a" file="config.yaml" />
+	<http:listener-config name="EAPI_Listener" doc:name="HTTP Listener config" doc:id="d2b2325e-49e4-4387-8774-04f5d27c2915" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<http:request-config name="PAPI_Requestor" doc:name="HTTP Request configuration" doc:id="8b24aab1-d731-486d-abe9-f564c13d6489" >
+		<http:request-connection host="${http_Requestor.request_host_papi}" port="${http_Requestor.request_port_papi}" />
+	</http:request-config>
+</mule>
