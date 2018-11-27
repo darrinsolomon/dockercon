@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="eapiFlow" doc:id="b904554f-12e9-40d7-a82f-36f4a1ddacbc" >
+		<http:listener doc:name="GET /eapi" doc:id="40128fd6-e46a-4788-9d9f-666eea807a9d" config-ref="EAPI_Listener" path="${http_Listener.listen_path}"/>
+		<http:request method="GET" doc:name="pAPI-placeOrder" doc:id="206dd373-50d8-4025-aeb6-d3b8abb107c6" config-ref="PAPI_Requestor" path="${http_Requestor.request_path_papi}"/>
+		<logger level="INFO" doc:name="Generic_Logger" doc:id="0c5e6e07-1de5-458f-a5ad-16d7d8f2e4c0" />
+	</flow>
+</mule>
