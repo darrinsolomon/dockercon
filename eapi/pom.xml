@@ -28,6 +28,7 @@
 				<cloudHubDeployment>
 			            <uri>${mule.URL}</uri>
 			            <muleVersion>4.1.3</muleVersion>
+			            <workerType>SMALL</workerType>			            
 			            <username>${mule.username}</username>
 			            <password>${mule.password}</password>
 			            <applicationName>eAPI-Mobile-dockercon</applicationName>
