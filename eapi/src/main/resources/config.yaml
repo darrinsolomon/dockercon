@@ -1,4 +1,4 @@
-#Experience API Configuration yaml
+#Experience API Configuration
 
 http.port: "8083"
 
