@@ -1,0 +1,12 @@
+#Process API Configuration
+
+http.port: "8082"
+
+http_Listener:
+  listen_path: "/papi"
+  
+http_Requestor:
+  request_host_sapi: "sAPI-inventory-VS.us-e2.cloudhub.io"
+  request_path_sapi: "/sapi"
+  #request_basepath_SOR_inventory: "/api"
+  request_port_sapi: "80"
