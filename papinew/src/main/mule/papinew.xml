@@ -10,19 +10,28 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<scatter-gather doc:name="Scatter-Gather" doc:id="aa8a69cd-20db-4083-9a1c-096706272d7c">
 			<route >
 				<http:request method="GET" doc:name="GET /sapi" doc:id="bb2feec4-bbf3-4678-9d32-8d5a9aa443a7" config-ref="HTTP_Request_Sapi" path="${http_request_sapi.path}" />
-				<logger level="INFO" doc:name="Logger" doc:id="4cf5fc03-87aa-444d-a34a-b1fd1f79c2cd" message="#[payload]"/>
 				<ee:transform doc:name="Transform Message" doc:id="41de4b67-ba2a-4190-9b53-a7c4319aa575" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-payload]]></ee:set-payload>
+{
+	products: payload.products map ( product , indexOfProduct ) -> {
+		brand: product.brand,
+		identifier: product.identifier default "",
+		model: product.model,
+		rating: product.rating,
+		description: product.description default "",
+		pictures: product.pictures map ( picture , indexOfPicture ) -> picture,
+		price: product.price
+	}
+}
+]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
 			</route>
 			<route >
 				<http:request method="GET" doc:name="GET /petstore" doc:id="f954fe20-442b-4978-a57d-6114f5b2362f" config-ref="HTTP_Request_petstore" path="${http_request_petstore.path}"/>
-				<logger level="INFO" doc:name="Logger" doc:id="4c2c93ed-061e-4294-badc-124d27170043" message="#[payload]"/>
 				<ee:transform doc:name="Transform Message" doc:id="2fa11588-69f7-43ef-a2c9-f54a6327e06f" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
@@ -39,9 +48,10 @@ payload]]></ee:set-payload>
 output application/json
 ---
 {
-	products: payload."0" ++ payload."1"
 	
-	}]]></ee:set-payload>
+products: payload
+	
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</flow>
