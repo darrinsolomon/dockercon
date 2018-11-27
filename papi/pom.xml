@@ -30,8 +30,8 @@
 			            <muleVersion>4.1.4</muleVersion>
 			            <username>${mule.username}</username>
 			            <password>${mule.password}</password>
-			            <applicationName>pAPI-placeOrder-VS</applicationName>
-			            <environment>Training</environment>
+			            <applicationName>pAPI-placeOrder-dockercon</applicationName>
+			            <environment>Sandbox</environment>
 			            <region>us-east-2</region>
 			            <properties>
 			                <key>value</key>
