@@ -30,8 +30,8 @@
 			            <muleVersion>4.1.4</muleVersion>
 			            <username>${mule.username}</username>
 			            <password>${mule.password}</password>
-			            <applicationName>eAPI-Mobile-VS</applicationName>
-			            <environment>Training</environment>
+			            <applicationName>eAPI-Mobile-dockercon</applicationName>
+			            <environment>Sandbox</environment>
 			            <region>us-east-2</region>
 			            <properties>
 			                <key>value</key>

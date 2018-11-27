@@ -6,7 +6,7 @@ http_Listener:
   listen_path: "/eapi"
   
 http_Requestor:
-  request_host_papi: "pAPI-placeOrder-VS.us-e2.cloudhub.io"
+  request_host_papi: "pAPI-placeOrder-dockercon.us-e2.cloudhub.io"
   request_path_papi: "/papi"
   #request_basepath_SOR_inventory: "/api"
   request_port_papi: "80"
