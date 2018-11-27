@@ -5,52 +5,28 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<flow name="papinewFlow" doc:id="ac424731-f437-4a9a-b3ed-0c05b4c363b8" >
-		<http:listener doc:name="Listener" doc:id="f740c575-a148-4017-ba9e-39b19b3917f4" config-ref="HTTP_Listener_config" path="/papi"/>
-		<scatter-gather doc:name="Scatter-Gather" doc:id="aa8a69cd-20db-4083-9a1c-096706272d7c">
+	<http:request-config name="HTTP_Request_configuration_Sapi" doc:name="HTTP Request configuration" doc:id="d4501ed2-9295-4fbc-8731-329c4ad7193d" >
+		<http:request-connection host="${http_request_sapi.host}" port="${http_request_sapi.port}" />
+	</http:request-config>
+	<flow name="papinewFlow" doc:id="ea2cb963-3bdd-48eb-828b-71ffc8c9114b" >
+		<http:listener doc:name="Listener" doc:id="c7b2c4c1-68c4-4d2f-9b22-3430bd9ca83e" config-ref="HTTP_Listener_config" path="/papi"/>
+		<scatter-gather doc:name="Scatter-Gather" doc:id="3f429638-d1c0-4df0-8060-01b0d7ca17a1">
 			<route >
-				<http:request method="GET" doc:name="GET /sapi" doc:id="bb2feec4-bbf3-4678-9d32-8d5a9aa443a7" config-ref="HTTP_Request_Sapi" path="${http_request_sapi.path}" />
-				<ee:transform doc:name="Transform Message" doc:id="41de4b67-ba2a-4190-9b53-a7c4319aa575" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-	products: payload.products map ( product , indexOfProduct ) -> {
-		brand: product.brand,
-		identifier: product.identifier default "",
-		model: product.model,
-		rating: product.rating,
-		description: product.description default "",
-		pictures: product.pictures map ( picture , indexOfPicture ) -> picture,
-		price: product.price
-	}
-}
-]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
+				<http:request method="GET" doc:name="Get /sapi" doc:id="7abddd37-4d79-49e5-a2ec-553b39c969bc" config-ref="HTTP_Request_configuration_Sapi" path="${http_request_sapi.path}" outputMimeType="application/json"/>
+				<logger level="INFO" doc:name="Logger" doc:id="6ba7d0bd-8b80-49e4-b423-c8b67d4c936c" message="#[payload]" />
 			</route>
 			<route >
-				<http:request method="GET" doc:name="GET /petstore" doc:id="f954fe20-442b-4978-a57d-6114f5b2362f" config-ref="HTTP_Request_petstore" path="${http_request_petstore.path}"/>
-				<ee:transform doc:name="Transform Message" doc:id="2fa11588-69f7-43ef-a2c9-f54a6327e06f" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-payload]]></ee:set-payload>
-					</ee:message>
-				</ee:transform>
+				<http:request method="GET" doc:name="GET /petstore" doc:id="ba11258a-9f22-4693-9730-6dacecafa6eb" config-ref="HTTP_Request_petstor" path="${http_request_petstore.path}" outputMimeType="application/json"/>
+				<logger level="INFO" doc:name="Logger" doc:id="7dae630c-ed2c-43b4-8c47-9e34d81658b2" message="#[payload]"/>
 			</route>
 		</scatter-gather>
-		<ee:transform doc:name="Transform Message" doc:id="18d8a26f-7573-4311-8872-e03737b91aa8" >
+		<ee:transform doc:name="Transform Message" doc:id="3fffdb14-ea83-4178-9148-9878d88eeeef" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
 {
-	
-products: payload
-	
+ products: [ payload[0].payload ] ++ (payload[1].payload.products default [])
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
