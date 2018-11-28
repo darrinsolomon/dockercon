@@ -18,23 +18,31 @@
           '''
       }
     }
-      stage("Deploying Soap Proxy") {
+      stage("Deploying sAPI") {
       environment {
         ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
       }
         steps {
- 				  sh 'mvn -f retailpetstore/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
+ 				  sh 'mvn -f sapi/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
       }
     }
-      stage("Updating and Re-Deploying pAPI") {
+      stage("Deploying pAPI") {
       environment {
         ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
       }
         steps {
- 				  sh 'mvn -f papinew/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
+ 				  sh 'mvn -f papi/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
       }
     }
-      stage("Finishing Task") {
+      stage("Deploying eAPI") {
+      environment {
+        ANYPOINT_CREDENTIALS = credentials('anypoint.credentials')
+      }
+        steps {
+          sh 'mvn -f eapi/pom.xml clean package deploy -Dmule.username=${ANYPOINT_CREDENTIALS_USR} -Dmule.password=${ANYPOINT_CREDENTIALS_PSW} -Dmule.URL=https://anypoint.mulesoft.com -DmuleDeploy'
+      }
+    }
+    stage("Finishing Task") {
       steps {
         echo "Deployment Completed on CH..."
       }
